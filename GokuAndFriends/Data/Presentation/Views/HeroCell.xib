@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HeroCell" customModule="GokuAndFriends" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="299" height="88"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="299" height="88"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfi-w3-0DU">
+                        <rect key="frame" x="15.000000000000004" y="11.999999999999998" width="41.333333333333343" height="20.333333333333329"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbH-gZ-Cvx">
+                        <rect key="frame" x="15" y="38.333333333333336" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="dbH-gZ-Cvx" firstAttribute="top" secondItem="kfi-w3-0DU" secondAttribute="bottom" constant="6" id="RPG-82-9VH"/>
+                <constraint firstItem="kfi-w3-0DU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="m2W-hO-Vcd"/>
+                <constraint firstItem="dbH-gZ-Cvx" firstAttribute="leading" secondItem="kfi-w3-0DU" secondAttribute="leading" id="ozO-mU-pVl"/>
+                <constraint firstItem="kfi-w3-0DU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="u6N-jL-ikg"/>
+            </constraints>
+            <size key="customSize" width="299" height="88"/>
+            <connections>
+                <outlet property="lbInfo" destination="dbH-gZ-Cvx" id="qvG-Ru-Ob8"/>
+                <outlet property="lbName" destination="kfi-w3-0DU" id="m08-99-afv"/>
+            </connections>
+            <point key="canvasLocation" x="150.38167938931298" y="-16.197183098591552"/>
+        </collectionViewCell>
+    </objects>
+</document>
