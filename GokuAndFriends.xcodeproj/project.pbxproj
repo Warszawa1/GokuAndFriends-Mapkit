@@ -16,6 +16,7 @@
 		6B1CEA202DA5CA9A00CB3C0D /* SecureDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEA1F2DA5CA9A00CB3C0D /* SecureDataProvider.swift */; };
 		6B1CEA222DA65B4600CB3C0D /* MockSecureDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEA212DA65B4600CB3C0D /* MockSecureDataProvider.swift */; };
 		6B1CEA242DA66CB500CB3C0D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEA232DA66CAA00CB3C0D /* .gitignore */; };
+		6B1CEA262DA66F9C00CB3C0D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEA252DA66F9100CB3C0D /* README.md */; };
 		6B2B6DE32D9DFCFC002B9D23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDC2D9DFCFC002B9D23 /* AppDelegate.swift */; };
 		6B2B6DE42D9DFCFC002B9D23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DE12D9DFCFC002B9D23 /* SceneDelegate.swift */; };
 		6B2B6DE52D9DFCFC002B9D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDD2D9DFCFC002B9D23 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		6B1CEA1F2DA5CA9A00CB3C0D /* SecureDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureDataProvider.swift; sourceTree = "<group>"; };
 		6B1CEA212DA65B4600CB3C0D /* MockSecureDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecureDataProvider.swift; sourceTree = "<group>"; };
 		6B1CEA232DA66CAA00CB3C0D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6B1CEA252DA66F9100CB3C0D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6B2B6DA82D9DF922002B9D23 /* GokuAndFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GokuAndFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DBE2D9DF924002B9D23 /* GokuAndFriendsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DC82D9DF924002B9D23 /* GokuAndFriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +194,7 @@
 		6B2B6D9F2D9DF922002B9D23 = {
 			isa = PBXGroup;
 			children = (
+				6B1CEA252DA66F9100CB3C0D /* README.md */,
 				6B1CEA232DA66CAA00CB3C0D /* .gitignore */,
 				6B2B6DE22D9DFCFC002B9D23 /* GokuAndFriends */,
 				6BBDC9132DA42647008120AF /* GokuAndFriendsTests */,
@@ -491,6 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B1CEA262DA66F9C00CB3C0D /* README.md in Resources */,
 				6B1CEA242DA66CB500CB3C0D /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
