@@ -43,7 +43,7 @@ class StoreDataProvider {
         }
         self.persistentContainer.loadPersistentStores { _, error in
             if let error {
-                fatalError("Core data couldn't load BBDD from Model")
+                fatalError("Core data couldn't load BBDD from Model \(error)")
             }
         }
     }
@@ -70,8 +70,6 @@ extension StoreDataProvider {
         
         // Same but using string
         // NSSortDescriptor(key: "name", ascending: sortAscending)
-        
- 
 
         request.sortDescriptors = [sortDescriptor]
         request.predicate = filter

@@ -8,6 +8,7 @@
 import UIKit
 
 
+
 enum HeroesSections {
     case main
 }
@@ -84,6 +85,19 @@ extension HeroesController: UICollectionViewDelegate, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width, height: 80.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let hero = viewModel.heroWith(index: indexPath.row) else {
+            return
+        }
+        let viewModel = HeroDetailViewModel(hero: hero)
+        let heroDetail = HeroDetailController(viewModel: viewModel)
+        navigationController?.pushViewController(heroDetail, animated: true)
+        
+        // Presentacion modal del mapa
+        // present(heroDetail, animated: true)
     }
     
 }

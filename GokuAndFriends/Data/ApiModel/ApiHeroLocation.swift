@@ -17,8 +17,8 @@ struct ApiHeroLocation: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case longitude = "logitud"
-        case latitude = "latitude"
+        case longitude = "longitud"
+        case latitude = "latitud"
         case date = "dateShow"
         case hero
     }

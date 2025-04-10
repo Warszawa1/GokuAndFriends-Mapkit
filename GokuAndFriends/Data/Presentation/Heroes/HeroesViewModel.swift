@@ -40,6 +40,11 @@ class HeroesViewModel {
             }
         }
     }
+//     To get the dot on the map
+//    func getHeroLocation() -> [MKAnnotation] {
+//        return
+//        
+//    }
     
     func fetchHeroes() -> [Hero] {
         return heroes
@@ -48,5 +53,12 @@ class HeroesViewModel {
     func performLogout() {
         secureData.clearToken()
         storedData.clearBBDD()
+    }
+    
+    func heroWith(index: Int) -> Hero? {
+        guard index < heroes.count else {
+            return nil
+        }
+        return heroes[index]
     }
 }
