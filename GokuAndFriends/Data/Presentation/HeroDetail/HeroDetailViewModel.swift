@@ -10,14 +10,17 @@ import Foundation
 
 enum HeroDetailState {
     case locationsUpdated
+    case transformationsUpdated
     case errorLoadingLocation(error: GAFError)
+    case errorLoadingTransformations(error: GAFError)
 }
 
 class HeroDetailViewModel {
     
     private var useCase: HeroDetailUseCaseProtocol
     private var locations: [HeroLocation] = []
-    private var hero: Hero
+    private var transformations: [Transformation] = []
+    var hero: Hero
     var stateChanged: ((HeroDetailState) -> Void)?
     
     
@@ -36,7 +39,20 @@ class HeroDetailViewModel {
                 self?.stateChanged?(.errorLoadingLocation(error: error))
             }
         }
+        loadTransformations()
     }
+    
+    private func loadTransformations() {
+            useCase.fetchTransformationsForHeroWith(id: hero.id) { [weak self] result in
+                switch result {
+                case .success(let transformations):
+                    self?.transformations = transformations
+                    self?.stateChanged?(.transformationsUpdated)
+                case .failure(let error):
+                    self?.stateChanged?(.errorLoadingTransformations(error: error))
+                }
+            }
+        }
     
     func getHeroLocations() -> [HeroAnnotation] {
         var annotations: [HeroAnnotation] = []
@@ -50,4 +66,8 @@ class HeroDetailViewModel {
         
         return annotations
     }
+    
+    func getTransformations() -> [Transformation] {
+            return transformations
+        }
 }

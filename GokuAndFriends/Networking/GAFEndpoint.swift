@@ -14,11 +14,13 @@ enum HTTPMethods: String {
 enum GAFEndpoint {
     case heroes(name: String)
     case locations(id: String)
-    case login(username: String, password: String)  // Add this new case
+    case login(username: String, password: String)
+    case transformations(id: String)
     
+
     var isAuthoritationRequired: Bool {
         switch self {
-        case .heroes, .locations:
+        case .heroes, .locations, .transformations:
             return true
         case .login:
             return false  // Login doesn't require authorization
@@ -33,12 +35,14 @@ enum GAFEndpoint {
             return "/api/heros/locations"
         case .login:
             return "/api/auth/login"  // Login endpoint path
+        case .transformations:
+            return "/api/heros/tranformations" // Note: Check the API for the exact path
         }
     }
     
     func httpMethod() -> String {
         switch self {
-        case .heroes, .locations, .login:
+        case .heroes, .locations, .login, .transformations:
             return HTTPMethods.POST.rawValue
         }
     }
@@ -57,6 +61,11 @@ enum GAFEndpoint {
             
         case .login(username: let username, password: let password):
             let attributes = ["email": username, "password": password]
+            let data = try? JSONSerialization.data(withJSONObject: attributes)
+            return data
+            
+        case .transformations(id: let id):
+            let attributes = ["id": id]
             let data = try? JSONSerialization.data(withJSONObject: attributes)
             return data
         }

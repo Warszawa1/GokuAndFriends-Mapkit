@@ -97,6 +97,15 @@ struct ApiProvider {
         }
     }
     
+    func fetchTransformationsForHeroWith(id: String, completion: @escaping (Result<[ApiTransformation], GAFError>) -> Void) {
+        do {
+            let request = try requestBuilder.build(endpoint: .transformations(id: id))
+            manageResponse(request: request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
     func manageResponse<T: Codable>(request: URLRequest, completion: @escaping (Result<T, GAFError>) -> Void) {
         session.dataTask(with: request) { data, response ,error in
             if let error {
