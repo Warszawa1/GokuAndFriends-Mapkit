@@ -29,6 +29,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1O-WH-a2I">
+                        <rect key="frame" x="211" y="0.0" width="88" height="88"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -40,6 +44,7 @@
             </constraints>
             <size key="customSize" width="299" height="88"/>
             <connections>
+                <outlet property="imgHero" destination="t1O-WH-a2I" id="Diq-G7-lf9"/>
                 <outlet property="lbInfo" destination="dbH-gZ-Cvx" id="qvG-Ru-Ob8"/>
                 <outlet property="lbName" destination="kfi-w3-0DU" id="m08-99-afv"/>
             </connections>
