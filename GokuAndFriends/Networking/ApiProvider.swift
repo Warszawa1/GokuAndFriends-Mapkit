@@ -18,6 +18,64 @@ struct ApiProvider {
         
     }
     
+    func performLoginRequest(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
+        // No need for do-catch if nothing throws
+        // Create login string in the required format
+        let loginString = String(format: "%@:%@", email, password)
+        guard let loginData = loginString.data(using: .utf8) else {
+            completion(.failure(NSError(domain: "LoginAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: "Error encoding credentials"])))
+            return
+        }
+        let base64LoginString = loginData.base64EncodedString()
+        
+        // Create URL
+        guard let url = URL(string: "https://dragonball.keepcoding.education/api/auth/login") else {
+            completion(.failure(NSError(domain: "LoginAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            // Handle network error
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            // Debug response
+            if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("Login response body: \(responseString)")
+            }
+            
+            // Check HTTP status code
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Login response code: \(httpResponse.statusCode)")
+                
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    completion(.failure(NSError(domain: "LoginAPI", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Credenciales incorrectas"])))
+                    return
+                }
+            }
+            
+            // Parse response data
+            guard let data = data else {
+                completion(.failure(NSError(domain: "LoginAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: "No se recibieron datos del servidor"])))
+                return
+            }
+            
+            // Based on your previous implementation, it seems the API returns the token directly as text
+            if let token = String(data: data, encoding: .utf8) {
+                // Return the token
+                completion(.success(token))
+            } else {
+                completion(.failure(NSError(domain: "LoginAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: "Formato de respuesta incorrecto"])))
+            }
+        }.resume()
+    }
+    
     
     func fetchHeroes(name: String = "", completion: @escaping (Result<[ApiHero], GAFError>) -> Void) {
         

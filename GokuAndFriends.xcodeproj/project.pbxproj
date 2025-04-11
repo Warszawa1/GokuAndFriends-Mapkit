@@ -22,6 +22,9 @@
 		6B1CEA422DA6C8EC00CB3C0D /* HeroDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEA412DA6C8EC00CB3C0D /* HeroDetailUseCase.swift */; };
 		6B1CEA452DA6E8CB00CB3C0D /* HeroAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEA442DA6E8CB00CB3C0D /* HeroAnnotation.swift */; };
 		6B1CEAC02DA7DF0E00CB3C0D /* HeroAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEABF2DA7DF0E00CB3C0D /* HeroAnnotationView.swift */; };
+		6B1CEAE02DA879F500CB3C0D /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEADF2DA879F500CB3C0D /* HeroDetailViewModel.swift */; };
+		6B1CEAF22DA8F72700CB3C0D /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEAF12DA8F72700CB3C0D /* LoginVIewModel.swift */; };
+		6B1CEAF42DA90CE900CB3C0D /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEAF32DA90CE900CB3C0D /* LoginUseCase.swift */; };
 		6B2B6DE32D9DFCFC002B9D23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDC2D9DFCFC002B9D23 /* AppDelegate.swift */; };
 		6B2B6DE42D9DFCFC002B9D23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DE12D9DFCFC002B9D23 /* SceneDelegate.swift */; };
 		6B2B6DE52D9DFCFC002B9D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDD2D9DFCFC002B9D23 /* Assets.xcassets */; };
@@ -78,6 +81,9 @@
 		6B1CEA412DA6C8EC00CB3C0D /* HeroDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailUseCase.swift; sourceTree = "<group>"; };
 		6B1CEA442DA6E8CB00CB3C0D /* HeroAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAnnotation.swift; sourceTree = "<group>"; };
 		6B1CEABF2DA7DF0E00CB3C0D /* HeroAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAnnotationView.swift; sourceTree = "<group>"; };
+		6B1CEADF2DA879F500CB3C0D /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
+		6B1CEAF12DA8F72700CB3C0D /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
+		6B1CEAF32DA90CE900CB3C0D /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		6B2B6DA82D9DF922002B9D23 /* GokuAndFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GokuAndFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DBE2D9DF924002B9D23 /* GokuAndFriendsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DC82D9DF924002B9D23 /* GokuAndFriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +209,7 @@
 				6B1CEA432DA6E8A900CB3C0D /* Views */,
 				6B1CEA3D2DA6742E00CB3C0D /* HeroDetailController.swift */,
 				6B1CEA3E2DA6742E00CB3C0D /* HeroDetailController.xib */,
+				6B1CEADF2DA879F500CB3C0D /* HeroDetailViewModel.swift */,
 			);
 			path = HeroDetail;
 			sourceTree = "<group>";
@@ -210,10 +217,12 @@
 		6B1CEA3C2DA672A800CB3C0D /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				6B1CEAF02DA8F54900CB3C0D /* Model */,
 				6B2B6DE92D9DFD2E002B9D23 /* SplashController.swift */,
 				6B2B6DEA2D9DFD2E002B9D23 /* SplashController.xib */,
 				6B2B6DED2D9DFD47002B9D23 /* LoginController.swift */,
 				6B2B6DEE2D9DFD47002B9D23 /* LoginController.xib */,
+				6B1CEAF12DA8F72700CB3C0D /* LoginVIewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -225,6 +234,13 @@
 				6B1CEABF2DA7DF0E00CB3C0D /* HeroAnnotationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6B1CEAF02DA8F54900CB3C0D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6B2B6D9F2D9DF922002B9D23 = {
@@ -328,6 +344,7 @@
 			children = (
 				6BBDC89A2DA3016F008120AF /* HeroesUseCase.swift */,
 				6B1CEA412DA6C8EC00CB3C0D /* HeroDetailUseCase.swift */,
+				6B1CEAF32DA90CE900CB3C0D /* LoginUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -532,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B1CEA452DA6E8CB00CB3C0D /* HeroAnnotation.swift in Sources */,
+				6B1CEAE02DA879F500CB3C0D /* HeroDetailViewModel.swift in Sources */,
 				6BBDC8982DA2C68C008120AF /* HeroLocation.swift in Sources */,
 				6B1CEA202DA5CA9A00CB3C0D /* SecureDataProvider.swift in Sources */,
 				6BBDC89B2DA3016F008120AF /* HeroesUseCase.swift in Sources */,
@@ -541,6 +559,7 @@
 				6B2B6DE32D9DFCFC002B9D23 /* AppDelegate.swift in Sources */,
 				6B2B6DEF2D9DFD47002B9D23 /* LoginController.swift in Sources */,
 				6BBDC8962DA2C633008120AF /* Hero.swift in Sources */,
+				6B1CEAF42DA90CE900CB3C0D /* LoginUseCase.swift in Sources */,
 				6B1CEA3F2DA6742E00CB3C0D /* HeroDetailController.swift in Sources */,
 				6B0EC7852DA1262900D01A67 /* ApiProvider.swift in Sources */,
 				6B2B6DE42D9DFCFC002B9D23 /* SceneDelegate.swift in Sources */,
@@ -552,6 +571,7 @@
 				6B2B6DEC2D9DFD2E002B9D23 /* SplashController.swift in Sources */,
 				6B2B6E032D9E08A7002B9D23 /* MOHeroLocation.swift in Sources */,
 				6B2B6E052D9E08A7002B9D23 /* MOHero.swift in Sources */,
+				6B1CEAF22DA8F72700CB3C0D /* LoginVIewModel.swift in Sources */,
 				6B2B6DF62D9E006B002B9D23 /* ApiHeroLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +633,7 @@
 				DEVELOPMENT_TEAM = VAA9LFFTNJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GokuAndFriends/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"This app requires permission to show  the device location in the map\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -641,6 +662,7 @@
 				DEVELOPMENT_TEAM = VAA9LFFTNJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GokuAndFriends/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"This app requires permission to show  the device location in the map\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

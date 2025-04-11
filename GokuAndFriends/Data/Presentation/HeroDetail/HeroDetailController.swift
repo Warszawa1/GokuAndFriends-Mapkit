@@ -7,54 +7,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-enum HeroDetailState {
-    case locationsUpdated
-    case errorLoadingLocation(error: GAFError)
-}
 
-class HeroDetailViewModel {
-    
-    private var useCase: HeroDetailUseCaseProtocol
-    private var locations: [HeroLocation] = []
-    private var hero: Hero
-    var stateChanged: ((HeroDetailState) -> Void)?
-    
-    
-    init(hero: Hero, useCase: HeroDetailUseCaseProtocol = HeroDetailUseCase()) {
-        self.hero = hero
-        self.useCase = useCase
-    }
-    
-    func loadData() {
-        useCase.fetchLocationsForHeroWith(id: hero.id) { [weak self]  result in
-            switch result {
-            case .success(let locations):
-                self?.locations = locations
-                self?.stateChanged?(.locationsUpdated)
-            case .failure(let error):
-                self?.stateChanged?(.errorLoadingLocation(error: error))
-            }
-        }
-    }
-    
-    func getHeroLocations() -> [HeroAnnotation] {
-        var annotations: [HeroAnnotation] = []
-        
-        // Check if we have any valid locations from the API
-        for location in locations {
-            if let coordinate = location.coordinate {
-                annotations.append(HeroAnnotation(coordinate: coordinate, title: hero.name))
-            }
-        }
-        
-        
-        return annotations
-    }
-    
-   
-
-}
 
 class HeroDetailController: UIViewController {
 
@@ -74,8 +29,9 @@ class HeroDetailController: UIViewController {
     
     private func configurateView() {
         mapView.delegate = self
+        // 3d view
 //        mapView.pitchButtonVisibility = .visible
-        mapView.showsUserLocation = false
+        mapView.showsUserLocation = true
     }
     
     
@@ -83,7 +39,7 @@ class HeroDetailController: UIViewController {
         super.viewDidLoad()
         configurateView()
         listenChangesInViewModel()
-//        checkLocationAuthorizationStatus()
+        checkLocationAuthorizationStatus()
         viewModel.loadData()
     }
     
@@ -139,6 +95,59 @@ class HeroDetailController: UIViewController {
                     longitudinalMeters: 700_000
                 ), animated: true)
             }
+        }
+    }
+    
+    private func checkLocationAuthorizationStatus() {
+        let status = locationManager.authorizationStatus
+        
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            mapView.showsUserLocation = false
+        case .authorizedAlways, .authorizedWhenInUse:
+            if #available(iOS 17.0, *) {
+                mapView.showsUserTrackingButton = true
+            } else {
+                // Add our custom tracking button for iOS 16
+                addCustomUserTrackingButton()
+            }
+            locationManager.startUpdatingLocation()
+        @unknown default:
+            break
+        }
+    }
+    
+    private func addCustomUserTrackingButton() {
+        let trackingButton = UIButton(type: .system)
+        trackingButton.setImage(UIImage(systemName: "location"), for: .normal)
+        trackingButton.backgroundColor = .white
+        trackingButton.layer.cornerRadius = 20
+        trackingButton.tintColor = .blue
+        trackingButton.layer.shadowColor = UIColor.black.cgColor
+        trackingButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        trackingButton.layer.shadowRadius = 2
+        trackingButton.layer.shadowOpacity = 0.3
+        trackingButton.addTarget(self, action: #selector(toggleUserTracking), for: .touchUpInside)
+        
+        // Add button to view hierarchy
+        trackingButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(trackingButton)
+        
+        NSLayoutConstraint.activate([
+            trackingButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -16),
+            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -16),
+            trackingButton.widthAnchor.constraint(equalToConstant: 40),
+            trackingButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+
+    @objc private func toggleUserTracking() {
+        if mapView.userTrackingMode == .none {
+            mapView.setUserTrackingMode(.follow, animated: true)
+        } else {
+            mapView.setUserTrackingMode(.none, animated: true)
         }
     }
 }
