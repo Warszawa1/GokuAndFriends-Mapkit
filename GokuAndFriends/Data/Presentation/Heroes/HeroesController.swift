@@ -7,97 +7,218 @@
 
 import UIKit
 
-
-
 enum HeroesSections {
     case main
 }
 
 class HeroesController: UIViewController {
     
-    typealias Datasource = UICollectionViewDiffableDataSource<HeroesSections, Hero>
-    typealias CellRegistration = UICollectionView.CellRegistration< HeroCell, Hero>
-
-    @IBOutlet weak var collectionView: UICollectionView!
+    // MARK: - UI Components
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
     
+    // MARK: - Properties
+    typealias Datasource = UICollectionViewDiffableDataSource<HeroesSections, Hero>
+    typealias CellRegistration = UICollectionView.CellRegistration<HeroCell, Hero>
     
     private var viewModel: HeroesViewModel
     private var datasource: Datasource?
     
-    init( viewModel: HeroesViewModel = HeroesViewModel()) {
+    // MARK: - Initialization
+    init(viewModel: HeroesViewModel = HeroesViewModel()) {
         self.viewModel = viewModel
-        super.init(nibName: String(describing: HeroesController.self), bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        listenStatesChangesInViewModel()
+        setupUI()
+        setupNavigationBar()
         configureCollectionView()
+        listenStatesChangesInViewModel()
         viewModel.loadData()
     }
-
-    func configureCollectionView() {
-        collectionView.delegate = self
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateCollectionViewLayout() // Update layout after view is laid out
+    }
+    
+    // MARK: - UI Setup
+    private func setupUI() {
+        view.backgroundColor = .white
         
-        let nib = UINib(nibName: HeroCell.identifier, bundle: nil)
-        let cellRegistration = CellRegistration(cellNib: nib) { cell, IndexPath, hero in
-            // configurar celda
+        // Add collectionView to view hierarchy
+        view.addSubview(collectionView)
+        
+        // Set constraints
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setupNavigationBar() {
+        title = "Heroes"
+        
+        navigationItem.hidesBackButton = true
+        
+        // Create a logout button with a system icon
+        let logoutButton = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.right.square"),
+            style: .plain,
+            target: self,
+            action: #selector(logoutTapped)
+        )
+        logoutButton.tintColor = .systemRed
+        
+        // Set it as the right bar button item
+        navigationItem.rightBarButtonItem = logoutButton
+    }
+    
+    func configureCollectionView() {
+        // Create a grid layout with 2 columns
+        let layout = UICollectionViewFlowLayout()
+        
+        // Set reasonable defaults initially (will be updated in viewWillLayoutSubviews)
+        layout.itemSize = CGSize(width: 100, height: 100) // Safe default
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        
+        // Apply the layout
+        collectionView.collectionViewLayout = layout
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        
+        // Register cell
+        let cellRegistration = UICollectionView.CellRegistration<HeroCell, Hero> { cell, indexPath, hero in
             cell.configureWith(hero: hero)
         }
         
         datasource = Datasource(collectionView: collectionView, cellProvider: { collectionView, indexPath, hero in
-            collectionView.dequeueConfiguredReusableCell(using: cellRegistration , for: indexPath, item: hero)
-            
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: hero)
         })
-        
     }
     
-    func listenStatesChangesInViewModel() {
+    private func updateCollectionViewLayout() {
+        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
+        // Get current width and make sure it's valid
+        let availableWidth = collectionView.bounds.width
+        guard availableWidth > 0 else { return } // Skip if width is zero or negative
+        
+        // Calculate item size based on current screen width
+        let spacing: CGFloat = 8
+        let numberOfColumns: CGFloat = availableWidth > 500 ? 3 : 2 // Use 3 columns for wider screens
+        
+        // Calculate width ensuring it's positive
+        let itemWidth = max(50, (availableWidth - spacing * (numberOfColumns - 1) - 16) / numberOfColumns)
+        
+        // Update the item size with a safe value
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
+        // Invalidate layout to force recalculation
+        layout.invalidateLayout()
+    }
+
+    func listenStatesChangesInViewModel() {
         viewModel.stateChaged = { [weak self] state in
-            switch state {
-            case .dataUpdated:
-                // Mostrar los heroes
-                var snapshot = NSDiffableDataSourceSnapshot<HeroesSections, Hero>()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(self?.viewModel.fetchHeroes() ?? [], toSection: .main)
-                self?.datasource?.applySnapshotUsingReloadData(snapshot)
-                
-            case .errorLoadingHeroes(error: let error):
-                print(error)
+            DispatchQueue.main.async {
+                switch state {
+                case .dataUpdated:
+                    // Mostrar los heroes
+                    var snapshot = NSDiffableDataSourceSnapshot<HeroesSections, Hero>()
+                    snapshot.appendSections([.main])
+                    snapshot.appendItems(self?.viewModel.fetchHeroes() ?? [], toSection: .main)
+                    self?.datasource?.apply(snapshot, animatingDifferences: true)
+                    
+                case .errorLoadingHeroes(error: let error):
+                    print(error)
+                    // You could add error handling UI here
+                    self?.showErrorAlert(message: "Error loading heroes: \(error.localizedDescription)")
+                }
             }
         }
     }
     
-    @IBAction func logoutTapped(_ sender: Any) {
+    // Helper method to show errors
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
+    @objc func logoutTapped(_ sender: Any) {
         viewModel.performLogout()
         navigationController?.popToRootViewController(animated: true)
     }
-    
 }
 
-extension HeroesController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 80.0)
-    }
-    
+// MARK: - UICollectionViewDelegate
+extension HeroesController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         guard let hero = viewModel.heroWith(index: indexPath.row) else {
             return
         }
         let viewModel = HeroDetailViewModel(hero: hero)
         let heroDetail = HeroDetailController(viewModel: viewModel)
         navigationController?.pushViewController(heroDetail, animated: true)
+    }
+
+    
+    // Explicitly set sizes through delegate methods to ensure 2 columns
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = collectionView.bounds.width
+        let spacing: CGFloat = 8
+        let numberOfColumns: CGFloat = 2
+        let itemWidth = (screenWidth - spacing * (numberOfColumns - 1) - 16) / numberOfColumns
         
-        // Presentacion modal del mapa
-        // present(heroDetail, animated: true)
+        return CGSize(width: itemWidth, height: itemWidth)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
 }
+
+//extension HeroesController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.bounds.size.width, height: 80.0)
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//        guard let hero = viewModel.heroWith(index: indexPath.row) else {
+//            return
+//        }
+//        let viewModel = HeroDetailViewModel(hero: hero)
+//        let heroDetail = HeroDetailController(viewModel: viewModel)
+//        navigationController?.pushViewController(heroDetail, animated: true)
+//        
+//        // Presentacion modal del mapa
+//        // present(heroDetail, animated: true)
+//    }
+//    
+//}

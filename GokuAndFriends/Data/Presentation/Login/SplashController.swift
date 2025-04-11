@@ -13,12 +13,19 @@ class SplashController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white // Or any color that matches your launch screen
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Small delay to ensure smooth transition from launch screen
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.checkAuthAndNavigate()
+        }
+    }
+    
+    private func checkAuthAndNavigate() {
         if secureData.getToken() != nil {
             let heroesVC = HeroesController()
             navigationController?.pushViewController(heroesVC, animated: false)
@@ -27,16 +34,4 @@ class SplashController: UIViewController {
             navigationController?.pushViewController(loginController, animated: true)
         }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -10,55 +10,71 @@ import UIKit
 class HeroCell: UICollectionViewCell {
     
     static let identifier = String(describing: HeroCell.self)
-
-    @IBOutlet weak var imgHero: UIImageView!
-    @IBOutlet weak var lbName: UILabel!
-    @IBOutlet weak var lbInfo: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // Cell styling
-        contentView.backgroundColor = .systemBackground
-        
-        // Add a subtle shadow to the cell
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.1
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowRadius = 3
-        
-        // Image view styling
-        imgHero.contentMode = .scaleAspectFill
-        imgHero.clipsToBounds = true
-        imgHero.layer.cornerRadius = 10
-        imgHero.backgroundColor = .systemGray5 // Placeholder background
-        
-        // Name label styling
-        lbName.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        lbName.textColor = .label
-        
-        // Info label styling
-        lbInfo.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        lbInfo.textColor = .secondaryLabel
-        lbInfo.numberOfLines = 2
+    // MARK: - UI Elements
+    private lazy var imgHero: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
+        return imageView
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textAlignment = .center
+        label.shadowColor = UIColor.black.withAlphaComponent(0.7)
+        label.shadowOffset = CGSize(width: 1, height: 1)
+        return label
+    }()
+    
+    // MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
     }
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupUI()
+    }
+    
+    // MARK: - UI Setup
+    private func setupUI() {
+        // Cell styling
+        contentView.backgroundColor = .white
+        
+        // Add subviews
+        contentView.addSubview(imgHero)
+        imgHero.addSubview(nameLabel) // Add the label on top of the image
+        
+        // Set constraints
+        NSLayoutConstraint.activate([
+            // Image view fills the cell with small margins
+            imgHero.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            imgHero.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            imgHero.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            imgHero.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            
+            // Name label at the bottom of the image
+            nameLabel.leadingAnchor.constraint(equalTo: imgHero.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: imgHero.trailingAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: imgHero.bottomAnchor, constant: -8)
+        ])
+    }
+    
+    // MARK: - Configuration
     func configureWith(hero: Hero) {
-        // Set text
-        lbName.text = hero.name
-        lbInfo.text = hero.description
+        // Set name
+        nameLabel.text = hero.name
         
-        // Reset image with placeholder
-        if let placeholder = UIImage(named: "hero_placeholder") {
-            imgHero.image = placeholder
-        } else {
-            imgHero.backgroundColor = .systemGray5
-        }
-        
-        // Add animation to image load
-        UIView.transition(with: imgHero, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            // Empty animation body - we'll set the image inside the completion of the download
-        }, completion: nil)
+        // Reset image
+        imgHero.image = nil
+        imgHero.backgroundColor = .systemGray5 // Placeholder background
         
         // Load the hero's image
         if let photoURLString = hero.photo, let photoURL = URL(string: photoURLString) {
@@ -66,10 +82,7 @@ class HeroCell: UICollectionViewCell {
                 if let imageData = try? Data(contentsOf: photoURL),
                    let image = UIImage(data: imageData) {
                     DispatchQueue.main.async {
-                        // Fade in the new image
-                        UIView.transition(with: self.imgHero, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                            self.imgHero.image = image
-                        }, completion: nil)
+                        self.imgHero.image = image
                     }
                 }
             }
@@ -78,16 +91,12 @@ class HeroCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        // Reset the cell's properties
-        if let placeholder = UIImage(named: "hero_placeholder") {
-            imgHero.image = placeholder
-        } else {
-            imgHero.backgroundColor = .systemGray5
-        }
-        lbName.text = nil
-        lbInfo.text = nil
+        imgHero.image = nil
+        nameLabel.text = nil
     }
 }
+
+
 //import UIKit
 //
 //class HeroCell: UICollectionViewCell {
