@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HeroCell: UICollectionViewCell {
     
@@ -74,23 +75,39 @@ class HeroCell: UICollectionViewCell {
         
         // Reset image
         imgHero.image = nil
+        let placeholder = UIImage(named: "hero_placeholder") ?? UIImage(systemName: "person.fill")
         imgHero.backgroundColor = .systemGray5 // Placeholder background
         
-        // Load the hero's image
+        // Load the hero's image MANUALLY
+//        if let photoURLString = hero.photo, let photoURL = URL(string: photoURLString) {
+//            DispatchQueue.global().async {
+//                if let imageData = try? Data(contentsOf: photoURL),
+//                   let image = UIImage(data: imageData) {
+//                    DispatchQueue.main.async {
+//                        self.imgHero.image = image
+//                    }
+//                }
+//            }
+//        }
+        // Use Kingfisher to load and cache the image
         if let photoURLString = hero.photo, let photoURL = URL(string: photoURLString) {
-            DispatchQueue.global().async {
-                if let imageData = try? Data(contentsOf: photoURL),
-                   let image = UIImage(data: imageData) {
-                    DispatchQueue.main.async {
-                        self.imgHero.image = image
-                    }
-                }
-            }
+            imgHero.kf.setImage(
+                with: photoURL,
+                placeholder: placeholder,
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            imgHero.image = placeholder
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        // Cancel any ongoing downloads when cell is reused
+        imgHero.kf.cancelDownloadTask()
         imgHero.image = nil
         nameLabel.text = nil
     }

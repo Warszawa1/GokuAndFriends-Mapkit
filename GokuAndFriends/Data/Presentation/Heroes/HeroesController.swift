@@ -77,7 +77,7 @@ class HeroesController: UIViewController {
         
         // Create a logout button with a system icon
         let logoutButton = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.right.square"),
+            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
             style: .plain,
             target: self,
             action: #selector(logoutTapped)

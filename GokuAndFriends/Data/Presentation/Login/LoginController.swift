@@ -8,19 +8,19 @@
 
 import UIKit
 
-final class LoginController: UIViewController {
-    // MARK: - Properties
-    private let viewModel: LoginViewModel
-    
+class LoginController: UIViewController {
     // MARK: - UI Elements
     private let logoImageView = UIImageView()
-    private let emailTextField = UITextField()
+    private let usernameTextField = UITextField()
     private let passwordTextField = UITextField()
     private let loginButton = UIButton(type: .system)
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
+    // MARK: - Properties
+    private var viewModel: LoginViewModel
+    
     // MARK: - Initialization
-    init(viewModel: LoginViewModel = LoginViewModel()) {
+    init(viewModel: LoginViewModel = .init()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,50 +33,15 @@ final class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindViewModel()
+        setupBindings()
+        setupKeyboardHandling()
         
+        // Hide back button
+        navigationItem.hidesBackButton = true
+        
+        // Add tap gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-    }
-    
-    // MARK: - Binding
-    private func bindViewModel() {
-        viewModel.onStateChanged = { [weak self] state in
-            DispatchQueue.main.async {
-                switch state {
-                case .loading:
-                    self?.showLoading(true)
-                case .error(let reason):
-                    self?.showLoading(false)
-                    self?.showAlert(title: "Error de Login", message: reason)
-                    self?.showLoginError()
-                case .success:
-                    self?.showLoading(false)
-                    self?.navigateToHeroesList()
-                case .initial:
-                    self?.activityIndicator.isHidden = true
-                    self?.loginButton.isEnabled = true
-                    self?.passwordTextField.isEnabled = true
-                }
-            }
-        }
-    }
-    
-    private func showLoading(_ isLoading: Bool) {
-        if isLoading {
-            activityIndicator.isHidden = false
-            activityIndicator.startAnimating()
-            loginButton.isEnabled = false
-        } else {
-            activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
-            loginButton.isEnabled = true
-        }
-    }
-    
-    private func navigateToHeroesList() {
-        let heroesVC = HeroesController()
-        navigationController?.pushViewController(heroesVC, animated: true)
     }
     
     @objc private func dismissKeyboard() {
@@ -85,111 +50,211 @@ final class LoginController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        // Set background color
-        view.backgroundColor = .systemBackground
+        // Set background to light
+        view.backgroundColor = .white
+        
+        // Add a scroll view
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        
+        // Add a content view inside scroll view
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+        
+        // Set up scroll view constraints
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
         
         // Setup logo image view
-        logoImageView.image = UIImage(named: "dragonBall")
+        logoImageView.image = UIImage(named: "bolaDragon") // Make sure this exists in your assets
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(logoImageView)
+        contentView.addSubview(logoImageView)
         
-        // Setup email text field
-        emailTextField.placeholder = "Email"
-        emailTextField.borderStyle = .roundedRect
-        emailTextField.autocapitalizationType = .none
-        emailTextField.autocorrectionType = .no
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailTextField)
+        // Setup username text field - light theme
+        usernameTextField.placeholder = "Usuario"
+        usernameTextField.borderStyle = .roundedRect
+        usernameTextField.backgroundColor = UIColor.systemGray6
+        usernameTextField.textColor = .black
+        usernameTextField.autocapitalizationType = .none
+        usernameTextField.autocorrectionType = .no
+        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(usernameTextField)
         
-        // Setup password text field
+        // Setup password text field - light theme
         passwordTextField.placeholder = "Contraseña"
         passwordTextField.borderStyle = .roundedRect
+        passwordTextField.backgroundColor = UIColor.systemGray6
+        passwordTextField.textColor = .black
         passwordTextField.isSecureTextEntry = true
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordTextField)
+        contentView.addSubview(passwordTextField)
         
-        // Setup login button
-        loginButton.setTitle("Iniciar Sesión", for: .normal)
-        loginButton.backgroundColor = .systemBlue
-        loginButton.setTitleColor(.white, for: .normal)
+        // Setup login button - light theme
+        loginButton.setTitle("Continuar", for: .normal)
+        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        loginButton.backgroundColor = .none
         loginButton.layer.cornerRadius = 8
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        view.addSubview(loginButton)
+        loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
+        contentView.addSubview(loginButton)
         
-        // Setup activity indicator
+        // Setup activity indicator - light theme
         activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .gray
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.isHidden = true
-        view.addSubview(activityIndicator)
+        contentView.addSubview(activityIndicator)
         
-        // Layout constraints
+        // Layout constraints - position elements higher on screen
         NSLayoutConstraint.activate([
-            // Logo
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.widthAnchor.constraint(equalToConstant: 150),
-            logoImageView.heightAnchor.constraint(equalToConstant: 150),
+            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 80), // Higher position
+            logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: 120),
+            logoImageView.heightAnchor.constraint(equalToConstant: 120),
             
-            // Email field
-            emailTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 40),
-            emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50),
+            usernameTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            usernameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
+            usernameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            usernameTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            // Password field
-            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
+            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 10),
+            passwordTextField.leadingAnchor.constraint(equalTo: usernameTextField.leadingAnchor),
+            passwordTextField.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            // Login button
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             loginButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
             loginButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             
-            // Activity indicator
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20)
+            activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            // Make content view taller to allow scrolling when keyboard appears
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
         ])
     }
     
+    // MARK: - Keyboard Handling
+    private func setupKeyboardHandling() {
+        // Register for keyboard notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if let scrollView = view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView {
+                // Add inset to allow scrolling when keyboard is shown
+                scrollView.contentInset.bottom = keyboardSize.height
+                scrollView.verticalScrollIndicatorInsets.bottom = keyboardSize.height
+                
+                // Scroll to the active text field
+                if let activeField = [usernameTextField, passwordTextField].first(where: { $0.isFirstResponder }) {
+                    let rect = activeField.convert(activeField.bounds, to: scrollView)
+                    scrollView.scrollRectToVisible(rect.insetBy(dx: 0, dy: -80), animated: true)
+                }
+            }
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+        if let scrollView = view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView {
+            // Reset insets when keyboard is hidden
+            scrollView.contentInset.bottom = 0
+            scrollView.verticalScrollIndicatorInsets.bottom = 0
+        }
+    }
+    
+    // MARK: - Cleanup
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Bindings
+    private func setupBindings() {
+        viewModel.onStateChanged = { [weak self] state in
+            DispatchQueue.main.async {
+                switch state {
+                case .initial:
+                    self?.activityIndicator.isHidden = true
+                    self?.loginButton.isEnabled = true
+                    self?.usernameTextField.isEnabled = true
+                    self?.passwordTextField.isEnabled = true
+                    
+                case .loading:
+                    self?.activityIndicator.isHidden = false
+                    self?.activityIndicator.startAnimating()
+                    self?.loginButton.isEnabled = false
+                    self?.usernameTextField.isEnabled = false
+                    self?.passwordTextField.isEnabled = false
+                    
+                case .success:
+                    self?.activityIndicator.isHidden = true
+                    self?.activityIndicator.stopAnimating()
+                    self?.navigateToHeroes()
+                    
+                case .error(let reason):
+                    self?.activityIndicator.isHidden = true
+                    self?.activityIndicator.stopAnimating()
+                    self?.loginButton.isEnabled = true
+                    self?.usernameTextField.isEnabled = true
+                    self?.passwordTextField.isEnabled = true
+                    self?.showError(message: reason)
+                    self?.showLoginError()
+                }
+            }
+        }
+    }
+    
     // MARK: - Actions
-    @objc private func loginButtonTapped() {
-        viewModel.login(username: emailTextField.text, password: passwordTextField.text)
+    @objc func loginTapped(_ sender: Any) {
+        viewModel.login(username: usernameTextField.text, password: passwordTextField.text)
+    }
+    
+    // MARK: - Navigation
+    private func navigateToHeroes() {
+        let heroesVC = HeroesController()
+        navigationController?.pushViewController(heroesVC, animated: true)
+    }
+    
+    // MARK: - Helper Methods
+    private func showError(message: String) {
+        let alert = UIAlertController(title: "Error de Login", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func showLoginError() {
-        // Shake animation for the login form
+        // Subtle shake animation for the login form
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         animation.duration = 0.6
         animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
         loginButton.layer.add(animation, forKey: "shake")
         
-        // Highlight the fields in red
+        // Briefly highlights the fields in red for light theme
         UIView.animate(withDuration: 0.2, animations: {
-            self.emailTextField.backgroundColor = UIColor.systemRed.withAlphaComponent(0.1)
-            self.passwordTextField.backgroundColor = UIColor.systemRed.withAlphaComponent(0.1)
+            self.usernameTextField.backgroundColor = UIColor.red.withAlphaComponent(0.2)
+            self.passwordTextField.backgroundColor = UIColor.red.withAlphaComponent(0.2)
         }) { _ in
             UIView.animate(withDuration: 0.2) {
-                self.emailTextField.backgroundColor = .systemBackground
-                self.passwordTextField.backgroundColor = .systemBackground
+                self.usernameTextField.backgroundColor = UIColor.systemGray6
+                self.passwordTextField.backgroundColor = UIColor.systemGray6
             }
         }
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
 }
 
