@@ -12,8 +12,6 @@ protocol SecureDataProtocol {
     func getToken() -> String?
     func setToken(_ token: String)
     func clearToken()
-    func deleteToken()
-    
 }
 
 struct SecureDataProvider: SecureDataProtocol {
@@ -31,9 +29,5 @@ struct SecureDataProvider: SecureDataProtocol {
     
     func clearToken() {
         keyChain.delete(keyToken)
-    }
-    
-    func deleteToken() {
-        clearToken()
     }
 }

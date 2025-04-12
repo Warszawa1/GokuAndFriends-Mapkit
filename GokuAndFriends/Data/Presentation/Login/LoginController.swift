@@ -51,7 +51,7 @@ class LoginController: UIViewController {
     // MARK: - UI Setup
     private func setupUI() {
         // Set background to light
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         // Add a scroll view
         let scrollView = UIScrollView()
@@ -87,7 +87,7 @@ class LoginController: UIViewController {
         usernameTextField.placeholder = "Usuario"
         usernameTextField.borderStyle = .roundedRect
         usernameTextField.backgroundColor = UIColor.systemGray6
-        usernameTextField.textColor = .black
+        usernameTextField.textColor = .label
         usernameTextField.autocapitalizationType = .none
         usernameTextField.autocorrectionType = .no
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -97,7 +97,7 @@ class LoginController: UIViewController {
         passwordTextField.placeholder = "Contraseña"
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.backgroundColor = UIColor.systemGray6
-        passwordTextField.textColor = .black
+        passwordTextField.textColor = .label
         passwordTextField.isSecureTextEntry = true
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(passwordTextField)

@@ -47,7 +47,7 @@ class HeroCell: UICollectionViewCell {
     // MARK: - UI Setup
     private func setupUI() {
         // Cell styling
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemBackground
         
         // Add subviews
         contentView.addSubview(imgHero)

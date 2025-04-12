@@ -27,6 +27,7 @@ class MockHeroesUseCaseError: HeroesUseCaseProtocol {
     }
 }
 
+
 final class HeroesViewModelTests: XCTestCase {
     
     var sut: HeroesViewModel!
@@ -65,6 +66,33 @@ final class HeroesViewModelTests: XCTestCase {
     }
     
     // todo testLogOut **************************************************************
+    func testLogOut() {
+        // Given
+        let storeProvider = StoreDataProvider.sharedTesting
+        let secureProvider = SecureDataProvider()
+        
+        // Add a hero to have something to clear
+        let apiHero = ApiHero(id: "test-id", favorite: false, name: "Test Hero", description: "Test", photo: "test")
+        storeProvider.insert(heroes: [apiHero])
+        secureProvider.setToken("test-token")
+        
+        sut = HeroesViewModel(
+            useCase: MockHeroesUseCase(),
+            storedData: storeProvider,
+            secureData: secureProvider
+        )
+        
+        // Verify we have data before logout
+        XCTAssertFalse(storeProvider.fetchHeroes(filter: nil).isEmpty)
+        XCTAssertNotNil(secureProvider.getToken())
+        
+        // When
+        sut.performLogout()
+        
+        // Then
+        XCTAssertTrue(storeProvider.fetchHeroes(filter: nil).isEmpty, "Heroes should be cleared after logout")
+        XCTAssertNil(secureProvider.getToken(), "Token should be cleared after logout")
+    }
 }
 
 extension ApiHero {

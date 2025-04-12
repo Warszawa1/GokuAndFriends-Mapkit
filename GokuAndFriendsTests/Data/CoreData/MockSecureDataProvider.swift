@@ -10,18 +10,22 @@ import Foundation
 
 
 class MockSecureDataProvider: SecureDataProtocol {
-    let keyToken = "keytoken"
-    let userDefaults = UserDefaults.standard
+    var clearTokenCalled = false
+    var tokenValue: String? = "test-token"
     
     func getToken() -> String? {
-        userDefaults.value(forKey: keyToken) as? String
+        return tokenValue
     }
     
     func setToken(_ token: String) {
-        userDefaults.setValue(token, forKey: keyToken)
+        tokenValue = token
     }
     
     func clearToken() {
-        userDefaults.removeObject(forKey: keyToken)
+        clearTokenCalled = true
+        tokenValue = nil
     }
 }
+
+
+
