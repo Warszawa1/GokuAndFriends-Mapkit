@@ -76,4 +76,14 @@ class TestableLoginUseCase: LoginUseCaseProtocol {
             }
         }
     }
+    
+    #if DEBUG
+    func checkKeychainStatus() -> String {
+        if let token = secureDataProvider.getToken() {
+            return "✅ KEYCHAIN: Token exists (\(token.prefix(10))...)"
+        } else {
+            return "❌ KEYCHAIN: No token found"
+        }
+    }
+    #endif
 }
