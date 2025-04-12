@@ -1,78 +1,127 @@
-# GokuAndFriends
+# GokuAndFriends - Dragon Ball Heroes App
 
-A Dragon Ball-themed iOS application demonstrating core iOS development concepts with UIKit.
+![Dragon Ball Heroes](https://static.alfabetajuega.com/wp-content/uploads/2019/03/dragon-ball-heroes-1-780x405.jpg)
 
-## Project Overview
+## 📱 Descripción
 
-This project showcases my learning journey in iOS development, implementing various patterns and technologies including:
+GokuAndFriends es una aplicación iOS que permite a los fans explorar los personajes del universo Dragon Ball, visualizar sus ubicaciones en el mapa y descubrir sus distintas transformaciones. La aplicación implementa una arquitectura MVVM robusta, consume una API REST con autenticación mediante tokens y utiliza Core Data para persistencia local.
 
-- MVVM Architecture
-- Secure data management
-- Core Data integration
-- Unit testing
-- UIKit programmatic interfaces
+## ✨ Características Principales
 
-## Features
+* **Autenticación segura** - Sistema de login con almacenamiento de token en Keychain
+* **Catálogo de héroes** - Visualización en grid de personajes con imágenes y nombres
+* **Ficha detallada** - Información completa de cada personaje
+* **Geolocalización** - Visualización de ubicaciones en mapas interactivos
+* **Transformaciones** - Galería de las distintas formas que puede adoptar cada personaje
+* **Modo offline** - Visualización de datos previamente cargados sin conexión a internet
 
-- User authentication flow
-- Character listing and details
-- Secure data storage using KeychainSwift
-- Persistent storage with Core Data
+## 🏗️ Arquitectura
 
-## Project Structure
-
-The project follows a clean architecture approach with clear separation of concerns:
-
-### Presentation Layer
-- **Heroes**: UI components for displaying character information
-  - HeroesController: Main listing view controller
-  - HeroCell: Custom cell for character display
-  - HeroesViewModel: View model for character data
-- **Splash & Login**: Onboarding experience
+El proyecto implementa una arquitectura **MVVM** (Model-View-ViewModel) con las siguientes capas:
 
 ### Data Layer
-- **CoreData**: Database models and persistence
-- **SecureDataProvider**: Secure storage implementation using KeychainSwift
+* **CoreData** - Almacenamiento local de entidades
+* **SecureDataProvider** - Gestión de tokens mediante Keychain
+* **ApiModel** - Modelos de transferencia de datos (DTOs)
 
 ### Domain Layer
-- **Model**: Core business models like Hero
-- **UseCase**: Business logic implementations
+* **UseCases** - Implementación de la lógica de negocio
+* **Models** - Entidades de dominio
+* **Protocols** - Interfaces para inversión de dependencias
+
+### Presentation Layer
+* **ViewModels** - Lógica de presentación y estados de UI
+* **Views** - Implementación de UI (XIBs y programática)
+* **Controllers** - Gestión del ciclo de vida y eventos
 
 ### Networking
-- API communication handling
-- SceneDelegate for app lifecycle management
+* **ApiProvider** - Cliente para comunicación con API
+* **RequestBuilder** - Construcción de peticiones HTTP
+* **GAFEndpoint** - Definición de endpoints y parámetros
 
-## Testing
+## 📊 Patrones de Diseño
 
-The project includes:
-- Unit tests for data providers
-- ViewModel tests
-- Use case tests
-- Mock implementations for testing
+* **MVVM** - Separación clara entre modelos, vistas y lógica de presentación
+* **Repository Pattern** - Abstracción de fuentes de datos
+* **Dependency Injection** - Inversión de control para testing y flexibilidad
+* **Observer Pattern** - Notificación de cambios de estado mediante closures
+* **Builder Pattern** - Construcción de ViewControllers con sus dependencias
 
-## What I Learned
+## 📱 Capturas de Pantalla
 
-Through this project, I've gained experience with:
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://via.placeholder.com/200x400" alt="Login" width="30%">
+  <img src="https://via.placeholder.com/200x400" alt="Lista de Héroes" width="30%">
+  <img src="https://via.placeholder.com/200x400" alt="Detalle, ubicación y transf" width="30%">
+</div>
 
-1. **Secure Data Management**: Implementing KeychainSwift for sensitive information storage
-2. **MVVM Architecture**: Properly separating concerns between view, model, and business logic
-3. **Unit Testing**: Creating comprehensive tests for all layers of the application
-4. **XIB-Based UI Development**: Creating interfaces using XIB files for better separation of UI components
-5. **Core Data**: Setting up and managing persistent storage
-6. **API Integration**: Fetching and processing remote data
+## 🧪 Testing
 
-## Getting Started
+El proyecto incluye una suite de tests unitarios que cubren:
 
-1. Clone the repository
-2. Open GokuAndFriends.xcodeproj in Xcode
-3. Build and run the project on your simulator or device
+* **ViewModels** - Tests de lógica de presentación
+* **UseCases** - Tests de lógica de negocio
+* **Mocks** - Implementaciones de prueba para aislar componentes
+* **API Providers** - Simulación de respuestas de red
 
-## Requirements
+## 🛠️ Tecnologías Utilizadas
 
-- iOS 15.0+
-- Xcode 13.0+
-- Swift 5.5+
+* **Swift 5** - Lenguaje de programación
+* **UIKit** - Framework de interfaz de usuario
+* **Core Data** - Persistencia local
+* **MapKit** - Visualización de mapas
+* **Keychain** - Almacenamiento seguro
+* **XCTest** - Framework de testing
 
-## Dependencies
+## 📋 Requisitos Técnicos
 
-- KeychainSwift (24.0.0)
+* iOS 15.0+
+* Xcode 13.0+
+* Swift 5.0+
+
+## 🚀 Instalación y Uso
+
+1. Clonar el repositorio
+
+git clone https://github.com/Warszawa1/GokuAndFriends-MapKit.git
+
+2. Abrir el proyecto en Xcode
+
+3. Compilar y ejecutar la aplicación
+4. Iniciar sesión con las credenciales proporcionadas
+
+## 🔒 Credenciales de Prueba
+
+* **Usuario:** [Usuario proporcionado]
+* **Contraseña:** [Contraseña proporcionada]
+
+
+## 🔄 Flujo de la Aplicación
+
+1. **Splash Screen** - Verifica token existente
+2. **Login** - Autenticación del usuario
+3. **Lista de Héroes** - Muestra el catálogo de personajes
+4. **Detalle del Héroe** - Muestra información, mapa y transformaciones
+5. **Modal de Transformación** - Visualización detallada de cada transformación
+
+## 🧠 Aprendizajes del Proyecto
+
+* Asimilar un poco mejor la arquitectura MVVM
+* Separación de responsabilidades con Clean Architecture
+* Gestión eficiente de datos con Core Data
+* Implementación de geolocalización con MapKit
+* Testing unitario con mocks y dependencias inyectadas
+* Construcción de UI mayormente código programático
+
+## 🚧 Posibles Mejoras Futuras
+
+* Implementación de búsqueda y filtrado
+* Sistema de héroes favoritos
+* Transiciones y animaciones avanzadas
+* Mayor cobertura de tests
+* Implementación de CI/CD
+* Localización para múltiples idiomas
+
+---
+
+*Este proyecto fue desarrollado como parte del aprendizaje en desarrollo iOS, arquitectura MVVM y buenas prácticas de programación.*

@@ -122,7 +122,7 @@ extension StoreDataProvider {
                 do {
                     try context.execute(task)
                 } catch {
-                    debugPrint("There wwas an error clearing BBDD \(error)")
+                    debugPrint("There was an error clearing BBDD \(error)")
                 }
             }
         }

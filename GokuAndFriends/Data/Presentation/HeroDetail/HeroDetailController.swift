@@ -50,7 +50,7 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
     
     // MARK: - UI Setup
     private func setupProgrammaticUI() {
-        // Scroll view container
+        // Create a scroll view container
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -60,7 +60,7 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
         
-        // Name label
+        // Create name label
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
@@ -68,10 +68,10 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
         nameLabel.numberOfLines = 0
         contentView.addSubview(nameLabel)
         
-        // Description label creation
+        // Create description label
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont.systemFont(ofSize: 16)
+        descriptionLabel.font = UIFont.systemFont(ofSize: 18)
         descriptionLabel.textColor = .secondaryLabel
         descriptionLabel.numberOfLines = 0
         contentView.addSubview(descriptionLabel)
@@ -139,7 +139,7 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
             transformationsCollectionView.topAnchor.constraint(equalTo: transformationsLabel.bottomAnchor, constant: 8),
             transformationsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             transformationsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            transformationsCollectionView.heightAnchor.constraint(equalToConstant: 150),
+            transformationsCollectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
             transformationsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }

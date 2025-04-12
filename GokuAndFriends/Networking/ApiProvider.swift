@@ -52,7 +52,7 @@ struct ApiProvider {
             
             // Check HTTP status code
             if let httpResponse = response as? HTTPURLResponse {
-                print("Login response code: \(httpResponse.statusCode)")
+//                print("Login response code: \(httpResponse.statusCode)")
                 
                 guard (200...299).contains(httpResponse.statusCode) else {
                     completion(.failure(NSError(domain: "LoginAPI", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Credenciales incorrectas"])))
