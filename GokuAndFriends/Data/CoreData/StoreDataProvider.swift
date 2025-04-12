@@ -49,7 +49,7 @@ class StoreDataProvider {
     }
     
     func saveContext() {
-        context.perform {  // Noaseguramos de usar el contextos en thread donde fué creado
+        context.perform {  // Usar el contextos en el thread donde fue creado
             guard self.context.hasChanges else { return }
             do {
                 try self.context.save()

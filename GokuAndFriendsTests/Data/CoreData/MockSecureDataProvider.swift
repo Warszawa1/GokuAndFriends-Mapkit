@@ -11,7 +11,7 @@ import Foundation
 
 class MockSecureDataProvider: SecureDataProtocol {
     var clearTokenCalled = false
-    var tokenValue: String? = "test-token"
+    var tokenValue: String? = nil
     
     func getToken() -> String? {
         return tokenValue

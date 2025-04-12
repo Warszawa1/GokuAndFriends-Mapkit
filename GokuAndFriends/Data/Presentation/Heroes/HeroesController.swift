@@ -84,6 +84,7 @@ class HeroesController: UIViewController {
         )
         logoutButton.tintColor = .systemRed
         
+        
         // Set it as the right bar button item
         navigationItem.rightBarButtonItem = logoutButton
     }
@@ -147,7 +148,6 @@ class HeroesController: UIViewController {
                     
                 case .errorLoadingHeroes(error: let error):
                     print(error)
-                    // You could add error handling UI here
                     self?.showErrorAlert(message: "Error loading heroes: \(error.localizedDescription)")
                 }
             }
@@ -179,7 +179,7 @@ extension HeroesController: UICollectionViewDelegate {
     }
 
     
-    // Explicitly set sizes through delegate methods to ensure 2 columns
+    // Ensure 2 columns
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = collectionView.bounds.width
         let spacing: CGFloat = 8
@@ -202,23 +202,8 @@ extension HeroesController: UICollectionViewDelegate {
     }
 }
 
-//extension HeroesController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.bounds.size.width, height: 80.0)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//        guard let hero = viewModel.heroWith(index: indexPath.row) else {
-//            return
-//        }
-//        let viewModel = HeroDetailViewModel(hero: hero)
-//        let heroDetail = HeroDetailController(viewModel: viewModel)
-//        navigationController?.pushViewController(heroDetail, animated: true)
-//        
-//        // Presentacion modal del mapa
-//        // present(heroDetail, animated: true)
-//    }
-//    
-//}
+ 
+// TODO Presentacion modal del mapa
+// present(heroDetail, animated: true)
+
+

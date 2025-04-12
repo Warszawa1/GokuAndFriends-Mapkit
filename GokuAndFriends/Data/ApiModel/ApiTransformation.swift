@@ -12,4 +12,9 @@ struct ApiTransformation: Codable {
     let name: String
     let description: String?
     let photo: String?
+    let hero: ApiHeroReference
+    
+    struct ApiHeroReference: Codable {
+        let id: String
+    }
 }

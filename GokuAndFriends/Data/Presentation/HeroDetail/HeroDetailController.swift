@@ -50,17 +50,17 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
     
     // MARK: - UI Setup
     private func setupProgrammaticUI() {
-        // Create a scroll view container
+        // Scroll view container
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
-        // Create content view for scroll view
+        // Content view for scroll view
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
         
-        // Create name label
+        // Name label
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
@@ -68,7 +68,7 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
         nameLabel.numberOfLines = 0
         contentView.addSubview(nameLabel)
         
-        // Create description label
+        // Description label creation
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
@@ -123,7 +123,7 @@ class HeroDetailController: UIViewController, MKMapViewDelegate {
             mapView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: 200),
+            mapView.heightAnchor.constraint(equalToConstant: 220),
             
             // Description label below map
             descriptionLabel.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 16),

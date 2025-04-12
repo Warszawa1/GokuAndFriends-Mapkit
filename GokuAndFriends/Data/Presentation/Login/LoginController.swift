@@ -78,7 +78,7 @@ class LoginController: UIViewController {
         ])
         
         // Setup logo image view
-        logoImageView.image = UIImage(named: "bolaDragon") // Make sure this exists in your assets
+        logoImageView.image = UIImage(named: "bolaDragon")
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(logoImageView)

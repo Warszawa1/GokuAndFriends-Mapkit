@@ -82,7 +82,5 @@ final class StoreDataProviderTests: XCTestCase {
                 name: name,
                 description: "description",
                 photo: "photo")
-
     }
-
 }
