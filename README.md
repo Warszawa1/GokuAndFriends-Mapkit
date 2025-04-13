@@ -1,10 +1,15 @@
 # GokuAndFriends - Dragon Ball Heroes App
 
-## 📱 Descripción
+
+## 🏷️ Descripción
+
 
 GokuAndFriends es una aplicación iOS que permite a los fans explorar los personajes del universo Dragon Ball, visualizar sus ubicaciones en el mapa y descubrir sus distintas transformaciones. La aplicación implementa una arquitectura MVVM robusta, consume una API REST con autenticación mediante tokens y utiliza Core Data para persistencia local.
 
 ## 📱 Capturas de Pantalla
+
+![Login Screen](Screenshots/lightVersion.jpg
+![Login Screen](Screenshots/darkVersion.png
 
 
 ## ✨ Características Principales
@@ -47,6 +52,7 @@ El proyecto implementa una arquitectura **MVVM** (Model-View-ViewModel) con las 
 * **Dependency Injection** - Inversión de control para testing y flexibilidad
 * **Observer Pattern** - Notificación de cambios de estado mediante closures
 * **Builder Pattern** - Construcción de ViewControllers con sus dependencias
+
 
 ## 🧪 Testing
 

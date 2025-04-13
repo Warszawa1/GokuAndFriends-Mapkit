@@ -31,6 +31,8 @@
 		6B1CEB8F2DAA839C00CB3C0D /* Transformations.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEB8E2DAA839000CB3C0D /* Transformations.json */; };
 		6B1CEB912DAAA94000CB3C0D /* MockLoginApiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEB902DAAA93700CB3C0D /* MockLoginApiProvider.swift */; };
 		6B1CEB932DAAA98300CB3C0D /* LoginUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEB922DAAA98300CB3C0D /* LoginUseCaseTests.swift */; };
+		6B1CEBD62DABD3F500CB3C0D /* lightVersion.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEBD52DABD3F500CB3C0D /* lightVersion.jpg */; };
+		6B1CEBD82DABD3FB00CB3C0D /* darkVersion.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEBD72DABD3FB00CB3C0D /* darkVersion.png */; };
 		6B2B6DE32D9DFCFC002B9D23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDC2D9DFCFC002B9D23 /* AppDelegate.swift */; };
 		6B2B6DE42D9DFCFC002B9D23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DE12D9DFCFC002B9D23 /* SceneDelegate.swift */; };
 		6B2B6DE52D9DFCFC002B9D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDD2D9DFCFC002B9D23 /* Assets.xcassets */; };
@@ -94,6 +96,8 @@
 		6B1CEB8E2DAA839000CB3C0D /* Transformations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Transformations.json; sourceTree = "<group>"; };
 		6B1CEB902DAAA93700CB3C0D /* MockLoginApiProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLoginApiProvider.swift; sourceTree = "<group>"; };
 		6B1CEB922DAAA98300CB3C0D /* LoginUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTests.swift; sourceTree = "<group>"; };
+		6B1CEBD52DABD3F500CB3C0D /* lightVersion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lightVersion.jpg; sourceTree = "<group>"; };
+		6B1CEBD72DABD3FB00CB3C0D /* darkVersion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkVersion.png; sourceTree = "<group>"; };
 		6B2B6DA82D9DF922002B9D23 /* GokuAndFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GokuAndFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DBE2D9DF924002B9D23 /* GokuAndFriendsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DC82D9DF924002B9D23 /* GokuAndFriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,9 +265,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6B1CEBD42DABD3DB00CB3C0D /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				6B1CEBD52DABD3F500CB3C0D /* lightVersion.jpg */,
+				6B1CEBD72DABD3FB00CB3C0D /* darkVersion.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		6B2B6D9F2D9DF922002B9D23 = {
 			isa = PBXGroup;
 			children = (
+				6B1CEBD42DABD3DB00CB3C0D /* Screenshots */,
 				6B1CEA252DA66F9100CB3C0D /* README.md */,
 				6B1CEA232DA66CAA00CB3C0D /* .gitignore */,
 				6B2B6DE22D9DFCFC002B9D23 /* GokuAndFriends */,
@@ -543,6 +557,8 @@
 				6B2B6DE52D9DFCFC002B9D23 /* Assets.xcassets in Resources */,
 				6B2B6DE72D9DFCFC002B9D23 /* LaunchScreen.storyboard in Resources */,
 				6B2B6DEB2D9DFD2E002B9D23 /* SplashController.xib in Resources */,
+				6B1CEBD62DABD3F500CB3C0D /* lightVersion.jpg in Resources */,
+				6B1CEBD82DABD3FB00CB3C0D /* darkVersion.png in Resources */,
 				6B1CEA402DA6742E00CB3C0D /* HeroDetailController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
