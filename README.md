@@ -1,7 +1,5 @@
 # GokuAndFriends - Dragon Ball Heroes App
 
-![Dragon Ball Heroes](https://static.alfabetajuega.com/wp-content/uploads/2019/03/dragon-ball-heroes-1-780x405.jpg)
-
 ## 📱 Descripción
 
 GokuAndFriends es una aplicación iOS que permite a los fans explorar los personajes del universo Dragon Ball, visualizar sus ubicaciones en el mapa y descubrir sus distintas transformaciones. La aplicación implementa una arquitectura MVVM robusta, consume una API REST con autenticación mediante tokens y utiliza Core Data para persistencia local.
