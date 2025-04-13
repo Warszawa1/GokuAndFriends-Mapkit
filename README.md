@@ -54,14 +54,23 @@ El proyecto implementa una arquitectura **MVVM** (Model-View-ViewModel) con las 
 * **Builder Pattern** - Construcción de ViewControllers con sus dependencias
 
 
-## 🧪 Testing
+## 🧪 Testing (cobertura)
 
-El proyecto incluye una suite de tests unitarios que cubren:
+### Suite de Pruebas Original
+El proyecto incluye una suite completa de tests unitarios que cubren:
 
-* **ViewModels** - Tests de lógica de presentación
+* **ViewModels** - Tests de lógica de presentación 
 * **UseCases** - Tests de lógica de negocio
 * **Mocks** - Implementaciones de prueba para aislar componentes
-* **API Providers** - Simulación de respuestas de red
+* **API Providers** - Simulación de respuestas de red 
+
+### Mis Implementaciones Adicionales
+Además de los tests de modelos existentes, he implementado los siguientes casos de prueba:
+- **testLogOut** - Verifica la funcionalidad de cierre de sesión
+- **testFetchTransformations** - Asegura que las transformaciones se recuperen correctamente
+- **testLoginSuccess_ShouldStoreToken** - Valida el almacenamiento del token en inicio de sesión exitoso
+- **testLoginFailure_shouldNotStoreToken** - Confirma que los tokens no se almacenan en intentos de inicio fallidos
+
 
 ## 🛠️ Tecnologías Utilizadas
 

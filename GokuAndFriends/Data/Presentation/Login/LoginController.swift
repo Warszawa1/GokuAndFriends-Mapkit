@@ -83,7 +83,7 @@ class LoginController: UIViewController {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(logoImageView)
         
-        // Setup username text field - light theme
+        // Setup username text field - system appeareance
         usernameTextField.placeholder = "Usuario"
         usernameTextField.borderStyle = .roundedRect
         usernameTextField.backgroundColor = UIColor.systemGray6
@@ -93,7 +93,7 @@ class LoginController: UIViewController {
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(usernameTextField)
         
-        // Setup password text field - light theme
+        // Setup password text field - system appeareance
         passwordTextField.placeholder = "Contraseña"
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.backgroundColor = UIColor.systemGray6
@@ -102,7 +102,7 @@ class LoginController: UIViewController {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(passwordTextField)
         
-        // Setup login button - light theme
+        // Setup login button - system appeareance
         loginButton.setTitle("Continuar", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         loginButton.backgroundColor = .none
@@ -111,7 +111,7 @@ class LoginController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         contentView.addSubview(loginButton)
         
-        // Setup activity indicator - light theme
+        // Setup activity indicator - system appeareance
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = .gray
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
