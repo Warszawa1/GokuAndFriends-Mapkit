@@ -5,8 +5,7 @@
 GokuAndFriends es una aplicación iOS que permite a los fans explorar los personajes del universo Dragon Ball, visualizar sus ubicaciones en el mapa y descubrir sus distintas transformaciones. La aplicación implementa una arquitectura MVVM robusta, consume una API REST con autenticación mediante tokens y utiliza Core Data para persistencia local.
 
 ## 📱 Capturas de Pantalla
-![lightVersion](https://github.com/user-attachments/assets/e09e9a4b-2d0e-4a1e-88dd-a016a697ef58)
-![darkVersion](https://github.com/user-attachments/assets/bde9b44e-b782-4bfb-a777-874abf586e53)
+
 
 ## ✨ Características Principales
 
