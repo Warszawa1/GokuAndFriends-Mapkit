@@ -32,6 +32,7 @@
 		6B1CEB932DAAA98300CB3C0D /* LoginUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEB922DAAA98300CB3C0D /* LoginUseCaseTests.swift */; };
 		6B1CEBD62DABD3F500CB3C0D /* lightVersion.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEBD52DABD3F500CB3C0D /* lightVersion.jpg */; };
 		6B1CEBD82DABD3FB00CB3C0D /* darkVersion.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B1CEBD72DABD3FB00CB3C0D /* darkVersion.png */; };
+		6B1CEBF42DAC2DE300CB3C0D /* OfflineDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1CEBF32DAC2DE300CB3C0D /* OfflineDataTests.swift */; };
 		6B2B6DE32D9DFCFC002B9D23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDC2D9DFCFC002B9D23 /* AppDelegate.swift */; };
 		6B2B6DE42D9DFCFC002B9D23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B6DE12D9DFCFC002B9D23 /* SceneDelegate.swift */; };
 		6B2B6DE52D9DFCFC002B9D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B6DDD2D9DFCFC002B9D23 /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 		6B1CEB922DAAA98300CB3C0D /* LoginUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTests.swift; sourceTree = "<group>"; };
 		6B1CEBD52DABD3F500CB3C0D /* lightVersion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lightVersion.jpg; sourceTree = "<group>"; };
 		6B1CEBD72DABD3FB00CB3C0D /* darkVersion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkVersion.png; sourceTree = "<group>"; };
+		6B1CEBF32DAC2DE300CB3C0D /* OfflineDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDataTests.swift; sourceTree = "<group>"; };
 		6B2B6DA82D9DF922002B9D23 /* GokuAndFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GokuAndFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DBE2D9DF924002B9D23 /* GokuAndFriendsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2B6DC82D9DF924002B9D23 /* GokuAndFriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GokuAndFriendsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -406,6 +408,7 @@
 			children = (
 				6BBDC9152DA426D9008120AF /* StoreDataProviderTests.swift */,
 				6B1CEA212DA65B4600CB3C0D /* MockSecureDataProvider.swift */,
+				6B1CEBF32DAC2DE300CB3C0D /* OfflineDataTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B1CEBF42DAC2DE300CB3C0D /* OfflineDataTests.swift in Sources */,
 				6BBDC97E2DA473B9008120AF /* MockURLProtocol.swift in Sources */,
 				6B1CEA172DA5746B00CB3C0D /* HeroesUseCaseTests.swift in Sources */,
 				6BBDC9162DA426D9008120AF /* StoreDataProviderTests.swift in Sources */,
