@@ -8,8 +8,8 @@ GokuAndFriends es una aplicación iOS que permite a los fans explorar los person
 
 ## 📱 Capturas de Pantalla
 
-![Login Screen](Screenshots/lightVersion.jpg
-![Login Screen](Screenshots/darkVersion.png
+![Login Screen](Screenshots/lightVersion.jpg)
+![Login Screen](Screenshots/darkVersion.png)
 
 
 ## ✨ Características Principales
