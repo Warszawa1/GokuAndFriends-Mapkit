@@ -10,6 +10,7 @@ import XCTest
 
 final class LoginUseCaseTests: XCTestCase {
     
+//<<** NEW TEST ********************************************************************>>
     func testLoginSuccess_ShouldStoreToken() {
         // Given
         let mockSecureData = MockSecureDataProvider()
@@ -32,6 +33,7 @@ final class LoginUseCaseTests: XCTestCase {
         XCTAssertTrue(mockApiProvider.loginCalled, "Login API should be called")
     }
     
+//<<** NEW TEST ********************************************************************>>
     func testLoginFailure_ShouldNotStoreToken() {
         // Given
         let mockSecureData = MockSecureDataProvider()

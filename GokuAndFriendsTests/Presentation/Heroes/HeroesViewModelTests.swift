@@ -65,7 +65,7 @@ final class HeroesViewModelTests: XCTestCase {
 
     }
     
-    // TODO testLogOut **************************************************************
+//<<** NEW TEST ********************************************************************>> 
     func testLogOut() {
         // Given
         let storeProvider = StoreDataProvider.sharedTesting

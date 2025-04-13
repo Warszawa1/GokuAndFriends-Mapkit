@@ -152,8 +152,7 @@ final class ApiProviderTest: XCTestCase {
         XCTAssertNotNil(expectedError)
     }
     
-//** NEW TEST *********************************************************************************************************************************************************
-    
+//<<** NEW TEST ********************************************************************>>    
     func testFetchTransformations() throws {
         // Given
         var expectedTransformations: [ApiTransformation] = []

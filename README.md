@@ -67,6 +67,7 @@ El proyecto incluye una suite completa de tests unitarios que cubren:
 ### Mis Implementaciones Adicionales
 Además de los tests de modelos existentes, he implementado los siguientes casos de prueba:
 - **testLogOut** - Verifica la funcionalidad de cierre de sesión
+- **testFetcgHeroesWhenOffline_ShouldReturnLocalData**  - Verifica el funcionamiento offline y la persistencia de datos
 - **testFetchTransformations** - Asegura que las transformaciones se recuperen correctamente
 - **testLoginSuccess_ShouldStoreToken** - Valida el almacenamiento del token en inicio de sesión exitoso
 - **testLoginFailure_shouldNotStoreToken** - Confirma que los tokens no se almacenan en intentos de inicio fallidos
